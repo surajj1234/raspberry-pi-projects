@@ -21,9 +21,7 @@ class WearableDemo():
         self.btDetector = MamaRoo_BTDetector.MamaRoo_BTDetector(COM_PORT_BT_DONGLE_LINUX, "mamaRoo", self.rssi_update_callback)        
         self.arduino = ArduinoController.ArduinoController(COM_PORT_ARDUINO, self.gesture_callback)    
         self.origami = OrigamiController.OrigamiController()        
-
         
-
     def rssi_update_callback(self, rssi): 
         
         print("RSSI = %.1f") % rssi        
@@ -34,6 +32,7 @@ class WearableDemo():
 
     def run_state_machine(self):
 
+        self.origami.actuate()        
         while self.runProgram == True:
             pass
 
@@ -41,6 +40,7 @@ class WearableDemo():
         self.runProgram = False
         self.arduino.close()
         self.btDetector.shutdown()
+        self.origami.turn_lights_off()
         print("Exiting Wearable Demo program....")
 
 if __name__ == "__main__":

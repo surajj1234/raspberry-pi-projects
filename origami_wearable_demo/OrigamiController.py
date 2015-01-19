@@ -1,4 +1,4 @@
-from time import sleep
+import time 
 import os
 import RPi.GPIO as GPIO
 
@@ -27,29 +27,28 @@ class OrigamiController():
     def actuate(self):
         print("Actuating Origami")
         
-        GPIO.Output(REV1, False)
+        GPIO.output(REV1, False)
         time.sleep(1)
-        GPIO.Output(REV1, True)
-        time.sleep(1)
-        
-        GPIO.Output(REV2, False)
-        time.sleep(1)
-        GPIO.Output(REV2, True)
+        GPIO.output(REV1, True)
         time.sleep(1)
         
-        GPIO.Output(BUTTON, True)
+        GPIO.output(REV2, False)
         time.sleep(1)
-        GPIO.Output(BUTTON, False)
+        GPIO.output(REV2, True)
         time.sleep(1)
+        
+        GPIO.output(BUTTON, True)
+        time.sleep(0.2)
+        GPIO.output(BUTTON, False)
+        time.sleep(4)
 
     def turn_lights_on(self):
         print("Turning light on")
         
-        GPIO.Output(LIGHTS, True)
+        GPIO.output(LIGHTS, True)
         
 
     def turn_lights_off(self):
         print("Turning lights off")
         
-        GPIO.Output(LIGHTS, False)
-
+        GPIO.output(LIGHTS, False)
