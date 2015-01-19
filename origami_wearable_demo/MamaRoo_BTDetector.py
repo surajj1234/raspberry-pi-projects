@@ -18,13 +18,13 @@ class MamaRoo_BTDetector():
     def __init__(self, comPort, detectTarget = "mamaRoo", wearable_detected_cb = None):
         """Detect if a device is close by using RSSI values"""
 
-        self.init_BT()
         self.comPort = comPort
         self.detectTarget = detectTarget
         self.wearable_detected_callback = wearable_detected_cb
 
         self.filterSamples = []
 
+        self.init_BT()
         self.start_threads()        
  
     def init_BT(self):
@@ -120,9 +120,6 @@ class MamaRoo_BTDetector():
         # Shutdown serial and BT dongle modules
         self.serial.close()
         self.dongle.close()
-
-        print("Exiting mamaRoo control program...")
-      
 
     #Thread handling--------------------------------------------
     

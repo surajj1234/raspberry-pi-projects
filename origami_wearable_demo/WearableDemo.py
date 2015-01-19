@@ -6,7 +6,7 @@ import OrigamiController
 import time
 
 COM_PORT_BT_DONGLE_LINUX = "/dev/ttyACM0"
-COM_PORT_ARDUINO = "dev/ttyAMA0"
+COM_PORT_ARDUINO = "/dev/ttyAMA0"
 
 WEARABLE_NOT_FOUND_ORIGAMI_NOT_PRIMED = 1
 WEARABLE_FOUND_ORIGAMI_NOT_PRIMED = 2
@@ -20,6 +20,7 @@ class WearableDemo():
         self.runProgram = True
         self.btDetector = MamaRoo_BTDetector.MamaRoo_BTDetector(COM_PORT_BT_DONGLE_LINUX, "mamaRoo", self.rssi_update_callback)        
         self.arduino = ArduinoController.ArduinoController(COM_PORT_ARDUINO, self.gesture_callback)    
+        self.origami = OrigamiController.OrigamiController()        
 
     def rssi_update_callback(self, rssi): 
         
@@ -36,7 +37,9 @@ class WearableDemo():
 
     def shutdown(self):
         self.runProgram = False
+        self.arduino.close()
         self.btDetector.shutdown()
+        print("Exiting Wearable Demo program....")
 
 if __name__ == "__main__":
 
