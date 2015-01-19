@@ -28,17 +28,17 @@ class OrigamiController():
         print("Actuating Origami")
         
         GPIO.output(REV1, False)
-        time.sleep(1)
+        time.sleep(0.1)
         GPIO.output(REV1, True)
-        time.sleep(1)
+        time.sleep(0.1)
         
         GPIO.output(REV2, False)
-        time.sleep(1)
+        time.sleep(0.1)
         GPIO.output(REV2, True)
-        time.sleep(1)
+        time.sleep(0.1)
         
         GPIO.output(BUTTON, True)
-        time.sleep(0.2)
+        time.sleep(0.1)
         GPIO.output(BUTTON, False)
         time.sleep(4)
 

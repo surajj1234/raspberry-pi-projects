@@ -4,7 +4,7 @@ import threading
 import os
 import time
 
-BAUDRATE = 115200
+BAUDRATE = 9600 
 TIMEOUT = 0                 # Timeout for serial read, in seconds, 0 for non-blocking reads
 
 class ArduinoController():
@@ -57,17 +57,21 @@ class ArduinoController():
 
     def activate_gesture_recognition(self):
 
-        byteChar = 0x41     # 'A'        
-        self.comms.write(byteChar)
+        packet = bytearray()
+        byteChar = 0x41     # 'A' 
+        packet.append(byteChar)       
+        self.comms.write(packet)
 
     def disable_gesture_recognition(self):
 
-        byteChar = 0x44     # 'D'        
-        self.comms.write(byteChar)
- 
+        packet = bytearray()
+        byteChar = 0x44     # 'D'
+        packet.append(byteChar)        
+        self.comms.write(packet)
+
     def valid_gesture_check(self, byteRx):
-       
-        if byteRx == 0x56:  # 'V'
+      
+        if byteRx == 'V':  # 'V'
             if self.gesture_detected_callback is not None:
                 self.gesture_detected_callback()
 

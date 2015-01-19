@@ -6,7 +6,7 @@ import OrigamiController
 import time
 
 COM_PORT_BT_DONGLE_LINUX = "/dev/ttyACM0"
-COM_PORT_ARDUINO = "/dev/ttyAMA0"
+COM_PORT_ARDUINO = "/dev/ttyACM1"
 
 WEARABLE_NOT_FOUND_ORIGAMI_NOT_PRIMED = 1
 WEARABLE_FOUND_ORIGAMI_NOT_PRIMED = 2
@@ -30,7 +30,7 @@ class WearableDemo():
 
     def rssi_update_callback(self, rssi): 
         
-        print("RSSI = %.1f") % rssi        
+        #print("RSSI = %.1f") % rssi        
         self.lastRSSIUpdate = time.time()
 
     def gesture_callback(self):
@@ -40,7 +40,7 @@ class WearableDemo():
     def init_state_machine(self):
         
         self.origami.turn_lights_off()
-        self.disable_gesture_recognition()
+        self.arduino.disable_gesture_recognition()
         self.demoState = WEARABLE_NOT_FOUND_ORIGAMI_NOT_PRIMED
 
     def run_state_machine(self):
@@ -65,7 +65,7 @@ class WearableDemo():
                 # Check if Arduino detected a gesture
                 if self.gestureDetected == True:
                     print("Arduino detected a gesture")
-                    #self.origami.actuate()
+                    self.origami.actuate()
                     self.gestureDetected = False
 
                 
