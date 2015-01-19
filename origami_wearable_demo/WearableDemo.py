@@ -22,6 +22,8 @@ class WearableDemo():
         self.arduino = ArduinoController.ArduinoController(COM_PORT_ARDUINO, self.gesture_callback)    
         self.origami = OrigamiController.OrigamiController()        
 
+        
+
     def rssi_update_callback(self, rssi): 
         
         print("RSSI = %.1f") % rssi        

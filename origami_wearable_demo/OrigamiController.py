@@ -41,9 +41,6 @@ class OrigamiController():
         time.sleep(1)
         GPIO.Output(BUTTON, False)
         time.sleep(1)
-        
-        
-        
 
     def turn_lights_on(self):
         print("Turning light on")
