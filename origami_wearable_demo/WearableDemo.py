@@ -24,20 +24,31 @@ class WearableDemo():
         
         self.demoState = WEARABLE_NOT_FOUND_ORIGAMI_NOT_PRIMED
         self.gestureDetected = False
+        self.lastRSSIUpdate = time.time()
+
+        self.init_state_machine()
 
     def rssi_update_callback(self, rssi): 
         
         print("RSSI = %.1f") % rssi        
+        self.lastRSSIUpdate = time.time()
 
     def gesture_callback(self):
      
         self.gestureDetected = True
+
+    def init_state_machine(self):
+        
+        self.origami.turn_lights_off()
+        self.disable_gesture_recognition()
+        self.demoState = WEARABLE_NOT_FOUND_ORIGAMI_NOT_PRIMED
 
     def run_state_machine(self):
 
         while self.runProgram == True:
             
             if self.demoState == WEARABLE_NOT_FOUND_ORIGAMI_NOT_PRIMED:
+                time.sleep(3)
                 self.demoState = WEARABLE_FOUND_ORIGAMI_NOT_PRIMED
 
             elif self.demoState == WEARABLE_FOUND_ORIGAMI_NOT_PRIMED:
@@ -56,8 +67,14 @@ class WearableDemo():
                     print("Arduino detected a gesture")
                     #self.origami.actuate()
                     self.gestureDetected = False
+
                 
-            
+                # Restart state machine if wearable is no longer detected
+                timeSinceLastRSSI = time.time() - self.lastRSSIUpdate
+                if timeSinceLastRSSI > 10:
+                    self.init_state_machine()
+               
+                # Restart state machine if wearable moves out of range 
 
     def shutdown(self):
         self.runProgram = False
