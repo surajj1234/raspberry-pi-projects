@@ -22,19 +22,42 @@ class WearableDemo():
         self.arduino = ArduinoController.ArduinoController(COM_PORT_ARDUINO, self.gesture_callback)    
         self.origami = OrigamiController.OrigamiController()        
         
+        self.demoState = WEARABLE_NOT_FOUND_ORIGAMI_NOT_PRIMED
+        self.gestureDetected = False
+
     def rssi_update_callback(self, rssi): 
         
         print("RSSI = %.1f") % rssi        
 
     def gesture_callback(self):
-        
-        print("Gesture detected by sonar")    
+     
+        self.gestureDetected = True
 
     def run_state_machine(self):
 
-        self.origami.actuate()        
         while self.runProgram == True:
-            pass
+            
+            if self.demoState == WEARABLE_NOT_FOUND_ORIGAMI_NOT_PRIMED:
+                self.demoState = WEARABLE_FOUND_ORIGAMI_NOT_PRIMED
+
+            elif self.demoState == WEARABLE_FOUND_ORIGAMI_NOT_PRIMED:
+                
+                # Turn Origami lights on    
+                self.origami.turn_lights_on()
+
+                # Tell Arduino to inform us if gestures are detected by sonar
+                self.arduino.activate_gesture_recognition()
+                self.demoState = WEARABLE_FOUND_ORIGAMI_PRIMED
+            
+            elif self.demoState == WEARABLE_FOUND_ORIGAMI_PRIMED:
+                
+                # Check if Arduino detected a gesture
+                if self.gestureDetected == True:
+                    print("Arduino detected a gesture")
+                    #self.origami.actuate()
+                    self.gestureDetected = False
+                
+            
 
     def shutdown(self):
         self.runProgram = False
