@@ -6,7 +6,7 @@ import time
 import numpy as np
 import threading
 
-AVG_WINDOW_SIZE = 4 
+AVG_WINDOW_SIZE = 5 
 
 # mamaRoo RSSI scanner State machine states
 DEVICE_INIT = 1
