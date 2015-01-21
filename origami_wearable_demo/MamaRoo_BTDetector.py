@@ -6,7 +6,7 @@ import time
 import numpy as np
 import threading
 
-AVG_WINDOW_SIZE = 5
+AVG_WINDOW_SIZE = 4 
 
 # mamaRoo RSSI scanner State machine states
 DEVICE_INIT = 1
@@ -108,7 +108,7 @@ class MamaRoo_BTDetector():
             time.sleep(0.1)
             scanDuration = time.time() - self.scanStartTime
             
-            if(scanDuration > 3):
+            if(scanDuration > 2):
                # Cancel scan and start a fresh scan
                 self.dongle.do_cancel_discovery()
 
