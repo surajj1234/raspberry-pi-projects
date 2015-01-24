@@ -34,7 +34,7 @@ class Origami_Server():
         elif command == TURN_LIGHTS_OFF:
             print >> sys.stderr, "Turning origami lights off"
         elif command == STROLLER_ACTUATE:
-            print >> sys.stderr, "Acutating stroller"
+            print >> sys.stderr, "Actuating stroller"
         elif command == "\n":
             pass
         else:
