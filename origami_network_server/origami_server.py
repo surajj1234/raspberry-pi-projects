@@ -4,7 +4,7 @@ import socket
 import sys
 
 SERVER_IP = "localhost"
-SERVER_PORT = 10001
+SERVER_PORT = 10000
 MESSAGE_SIZE = 1 
 
 TURN_LIGHTS_ON = 'L'
