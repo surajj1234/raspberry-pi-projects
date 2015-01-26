@@ -2,8 +2,11 @@
 
 import socket
 import sys
+import OrigamiController
 
-SERVER_IP = "localhost"
+SERVER_IP = "10.10.10.181"
+#SERVER_IP = "localhost"
+
 SERVER_PORT = 10000
 MESSAGE_SIZE = 1 
 
@@ -16,6 +19,8 @@ class Origami_Server():
     def __init__(self):
         '''Creates a server which can be used to control an Origami over a network'''
 
+        self.origami = OrigamiController.OrigamiController()
+    
         # Create a TCP/IP socket
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -31,10 +36,16 @@ class Origami_Server():
 
         if command == TURN_LIGHTS_ON:
             print >> sys.stderr, "Turning origami lights on"
+            self.origami.turn_lights_on()
+
         elif command == TURN_LIGHTS_OFF:
             print >> sys.stderr, "Turning origami lights off"
+            self.origami.turn_lights_off()
+
         elif command == STROLLER_ACTUATE:
             print >> sys.stderr, "Actuating stroller"
+            self.origami.actuate()            
+
         elif command == "\n":
             pass
         else:
